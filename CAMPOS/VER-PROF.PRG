@@ -23,7 +23,7 @@ OBJETIVOS:
 *------------------------------------------------------------------------*/
 
 *>>>>VERSION ACTUAL
-       LOCAL cVerSis := ' XML213.02'            // Versi¢n Actual
+       LOCAL cVerSis := ' XML214.01'            // Versi¢n Actual
 *>>>>FIN VERSION ACTUAL
 
 /*
