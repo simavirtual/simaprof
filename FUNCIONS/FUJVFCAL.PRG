@@ -1112,3 +1112,96 @@ FUNCTION NoSiLog103(cLogros,nNoLogr,nSiLogr,nPerAnt,nPerAct,nTotPer,lHayErr)
        ENDFOR
        RETURN NIL
 *>>>>FIN CALCULO DEL JUICIO VALORATIVO
+
+/*************************************************************************
+* TITULO..: CALCULO LA NOTA DEFINITIVA DEL METODO CODIGO: 99            *
+**************************************************************************
+
+AUTOR: Nelson Fern ndez G¢mez       FECHA DE CREACION: FEB 02/2015 LUN
+       Colombia, Bucaramanga        INICIO: 08:00 AM   FEB 02/2015 LUN
+
+OBJETIVOS:
+
+1- Calcula la nota definitiva de acuerdo a porcentajes
+
+2- Retorna la nota definitiva.
+
+*------------------------------------------------------------------------*
+*                              PROGRAMA                                  *
+*------------------------------------------------------------------------*/
+
+FUNCTION cNotDef99(nNroPer,nNroInd,cPorcen,cNotInd)
+
+*>>>>DESCRIPCION DE PARAMETROS
+/*     nNroPer                              // N£mero del Periodo
+       nNroInd                              // Numero de Indicadores
+       cPorcen                              // Porcentaje
+       cNotInd                              // Nota de los Indicadores */
+*>>>>FIN DESCRIPCION DE PARAMETROS
+
+*>>>>DECLARACION DE VARIABLES
+       LOCAL      i  := 0
+
+       LOCAL cNotas  := ''                   // Notas de los Indicador
+       LOCAL cNotNum := ''                   // Nota del Indicador
+       LOCAL aNotInd := {}                   // Notas de los Indicadores
+       LOCAL nNotNum := 0                    // Nota Numerica.
+
+       LOCAL nTotNot := 0                    // Suma de las Notas
+       LOCAL nNroNot := 0                    // Numero de Notas
+
+       LOCAL nNotPro := 0                    // Nota Promedio
+       LOCAL nUltNot := 0                    // Ultima Nota
+
+       LOCAL cPorPer := ''                   // Porcentaje del Periodo
+       LOCAL nPorUno := 0                    // Porcentaje Uno
+       LOCAL nPorDos := 0                    // Porcentaje Dos
+
+       LOCAL nNotUno := 0                    // Nota primera nota
+       LOCAL nNotDos := 0                    // Nota segunda nota
+
+       LOCAL nNotDef := 0                    // Nota Definitiva
+       LOCAL cNotDef := ''                   // Nota Definitiva
+*>>>>FIN DECLARACION DE VARIABLES
+
+*>>>>LECTURA DE LAS NOTAS
+       FOR i := 1 TO nNroInd
+	   cNotas  := SUBS(cNotInd,nPosIni(i,8),8)
+	   cNotNum := SUBS(cNotas,1,4)
+	   AADD(aNotInd,VAL(cNotNum))
+       ENDFOR
+*>>>>FIN LECTURA DE LAS NOTAS
+
+*>>>>TOTALIZACION DE LA NOTA
+       FOR i := 1 TO LEN(aNotInd)-1
+	   nNotNum := aNotInd[i]
+	   IF nNotNum > 0
+	      nTotNot += nNotNum
+	      nNroNot++
+	   ENDIF
+       ENDFOR
+*>>>>FIN TOTALIZACION DE LA NOTA
+
+*>>>>NOTA PROMEDIO
+       IF nTotNot > 0
+	  nNotPro := ROUND(nTotNot/nNroNot,1)
+       ENDIF
+       nUltNot := aNotInd[LEN(aNotInd)]
+*>>>>FIN NOTA PROMEDIO
+
+*>>>>CALCULO DE LA NOTA DEFINITIVA
+       cPorPer := SUBS(cPorcen,nNroPer*4-3,4)
+       nPorUno := VAL(SUBS(cPorPer,1,2))
+       nPorDos := VAL(SUBS(cPorPer,3,2))
+
+       nNotUno := (nNotPro*nPorUno)/100
+       nNotUno := ROUND(nNotUno,1)
+
+       nNotDos := (nUltNot*nPorDos)/100
+       nNotDos := ROUND(nNotDos,1)
+
+       nNotDef := nNotUno+nNotDos
+       cNotDef := STR(nNotDef,4,1)
+
+       RETURN cNotDef
+*>>>>FIN CALCULO DE LA NOTA DEFINITIVA

@@ -66,6 +66,9 @@ FUNCTION CreaProTbl(lShared,nModCry,PathArc,fArchvo,aStrDbf)
        AADD(aDbfStr,{"cJvfCalTbl","Character",015,0}) // Juicio Valorativo Calculado. Tres digitos por periodo. 101 =>1:Clase 01:Metodo
        AADD(aDbfStr,{"nMetRecTbl","Numeric"  ,004,0}) // Metodo para lectura de las recuperaciones
 
+       AADD(aDbfStr,{"nMetodoTbl","Numeric"  ,04,1}) // Metodo para los calculos de los promedios. Por defecto 0
+       AADD(aDbfStr,{"cPorcenTbl","Character",20,0}) // Porcentajes de los periodos
+
        AADD(aDbfStr,{'cNomUsrTbl','Character',10,0}) // Nombre del Usuario
        AADD(aDbfStr,{'dFecUsrTbl','Date'     ,08,0}) // Fecha del Usuario
        AADD(aDbfStr,{'cHorUsrTbl','Character',10,0}) // Hora del Usuario
@@ -439,6 +442,13 @@ FUNCTION ManProTbl(aP1,aP2,aP3)
 		     {{'MODI',.T.},{'ALIAS','TPR'},;
 		      {'FIELD','nMetRecTbl'},{'PICTURE','9999'}}})
 
+       AADD(aCampos,{{"METODO PARA;LOS CALCULOS","nMetodoTbl"},;
+		     {{'MODI',.T.},{'ALIAS','TPR'},;
+		      {'FIELD','nMetodoTbl'},{'PICTURE','99.9'}}})
+
+       AADD(aCampos,{{"PORCENTAJES;PERIODOS","cPorcenTbl"},;
+		     {{'MODI',.T.},{'ALIAS','TPR'},;
+		      {'FIELD','cPorcenTbl'},{'PICTURE','99999999999999999999'}}})
 
        AADD(aCampos,{{'NOMBRE;DEL USUARIO','cNomUsrTbl'},;
 		     {{'MODI',.F.}}})

@@ -52,7 +52,6 @@ FUNCTION CreaSprAno(lShared,nModCry,PathArc,fArchvo,aStrDbf)
        AADD(aDbfStr,{'cHorHabAno','Character',08,0}) // Hora de Cierre del Sistema
 
        AADD(aDbfStr,{'nModRegAno','Numeric'  ,01,0}) // 0=Modificar Registros. 1=No Modificar Registros
-
        AADD(aDbfStr,{'cGraNovAno','Character',03,0}) // Grabaci¢n de la Novedad 1: Confirma la Novedad por Defecto 2: Menu de Grabaci¢n
        AADD(aDbfStr,{'lValNovAno','Logical'  ,01,0}) // .T. Validar la Novedad de Grabaci¢n.
        AADD(aDbfStr,{'lTruncaAno','Logical'  ,01,0}) // .T. Trunca .F. Aproxima
@@ -478,6 +477,8 @@ FUNCTION oBrwSprAno(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,nColInf)
 			 {'FIELD','cTitul1Ano'},{'PICTURE','@!'}}
        oBrowse:ADDCOLUMN(oColumn)
      *ÀDefinici¢n Columna
+
+
 
        oColumn	:= TBCOLUMNNEW('TRUNCAR DEFINITIVA',{||ARC->lTruncaAno})
        oColumn:Cargo := {{'MODI',.T.},{'ALIAS','ARC'},;
